@@ -19,6 +19,6 @@
 
 # Примеры
 ## Генерация 3 разных QR-кодов по шаблону template1
-`node index.js --scale 3 --logoPath "https://239911.selcdn.ru/Metadata/Tenant000017/logo.svg" --template template1 --count 3 --width 99 --height 110`
+```node index.js --scale 3 --logoPath "https://239911.selcdn.ru/Metadata/Tenant000017/logo.svg" --template template1 --count 3 --width 99 --height 110```
 В результате в папке out появится 3 изображения-png с QR-кодами
 
