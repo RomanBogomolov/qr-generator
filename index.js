@@ -1,29 +1,31 @@
 const urlToImage = require('url-to-image');
 const args = require('minimist')(process.argv.slice(2), {
     alias: {
-	"?": "help",
-        s: 'scale',
-        lp: 'logoPath',
-        t: "template",
-        c: "code",
-        cnt: "count",
+    "?": "help",
+    s: 'scale',
+    lp: 'logoPath',
+    t: "template",
+    c: "code",
+    cnt: "count",
 	w: "width",
 	h: "height",
-        l: "label"
-    }
+    l: "label",
+	cp: "codePrefix"
+}
 });
 
 if(args.help)
 {
-    console.log("    -?   / --help      help");
-    console.log("    -s   / --scale     image scale - optional (default 1)");
-    console.log("    -lp  / --logoPath  url to logo - optional (will be empty if not specified)");
-    console.log("    -t   / --template  template of QR-code - required (available: template1, template2, template3, template4, template5)");
-    console.log("    -c   / --code      code that will be used for QR-code");
-    console.log("    -l   / --label     label for qr (if available)");
-    console.log("    -cnt / --count     count of generated qr-codes  - required");
-    console.log("    -w   / --width     result image width (in px) - required");
-    console.log("    -h   / --height    result image width (in px) - required");
+    console.log("    -?   / --help       help");
+    console.log("    -s   / --scale      image scale - optional (default 1)");
+    console.log("    -lp  / --logoPath   url to logo - optional (will be empty if not specified)");
+    console.log("    -t   / --template   template of QR-code - required (available: template1, template2, template3, template4, template5)");
+    console.log("    -c   / --code       code that will be used for QR-code");
+    console.log("    -l   / --label      label for qr (if available)");
+    console.log("    -cnt / --count      count of generated qr-codes  - required");
+    console.log("    -w   / --width      result image width (in px) - required");
+    console.log("    -h   / --height     result image width (in px) - required");
+    console.log("    -cp  / --codePrefix prefix to the code that may be used to prevent duplication (unable to use together with Code) - optional (default x-)");
     return;
 }
 
@@ -36,6 +38,7 @@ const label = args.label;
 const count = args.count ? args.count : 1;
 const width = args.width;
 const height = args.height;
+const codePrefix = args.codePrefix;
 
 var url = "https://dev-api.hubex.ru/tool/QrRenderer/" + template + "?scale=" + scale;
 if(logoPath) {
@@ -44,6 +47,10 @@ if(logoPath) {
 
 if(code) {
     url += "&code=" + code;
+}
+
+if(codePrefix) {
+    url += "&codePrefix=" + codePrefix;
 }
 
 if(label) {
